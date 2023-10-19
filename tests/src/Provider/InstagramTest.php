@@ -4,13 +4,13 @@ namespace League\OAuth2\Client\Test\Provider;
 
 use InvalidArgumentException;
 use Mockery as m;
-use League\OAuth2\Client\Provider\Facebook;
+use League\OAuth2\Client\Provider\Instagram;
 use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Provider\Exception\FacebookProviderException;
 use PHPUnit\Framework\TestCase;
 
-class FooFacebookProvider extends Facebook
+class FooInstagramProvider extends Instagram
 {
     protected function fetchResourceOwnerDetails(AccessToken $token)
     {
@@ -18,7 +18,7 @@ class FooFacebookProvider extends Facebook
     }
 }
 
-class FacebookTest extends TestCase
+class InstagramTest extends TestCase
 {
     /**
      * @const string The version of the Graph API we want to use for tests.
@@ -26,13 +26,13 @@ class FacebookTest extends TestCase
     protected const GRAPH_API_VERSION = 'v7.0';
 
     /**
-     * @var Facebook
+     * @var Instagram
      */
     protected $provider;
 
     protected function setUp(): void
     {
-        $this->provider = new Facebook([
+        $this->provider = new Instagram([
             'clientId' => 'mock_client_id',
             'clientSecret' => 'mock_secret',
             'redirectUri' => 'none',
@@ -73,7 +73,7 @@ class FacebookTest extends TestCase
     public function testGraphApiVersionCanBeCustomized(): void
     {
         $graphVersion = 'v13.37';
-        $provider = new Facebook([
+        $provider = new Instagram([
             'graphApiVersion' => $graphVersion,
             'clientSecret' => 'mock_secret',
         ]);
@@ -109,7 +109,7 @@ class FacebookTest extends TestCase
         $graphVersion = static::GRAPH_API_VERSION;
         $fooToken = new AccessToken(['access_token' => 'foo_token']);
         $fields = ['id', 'name', 'first_name', 'last_name', 'email'];
-        $provider = new Facebook([
+        $provider = new Instagram([
             'graphApiVersion' => $graphVersion,
             'clientSecret' => 'mock_secret',
             'fields' => $fields
@@ -140,7 +140,7 @@ class FacebookTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
         $graphVersion = '2.4';
-        $provider = new Facebook([
+        $provider = new Instagram([
             'graphApiVersion' => $graphVersion,
             'clientSecret' => 'mock_secret',
         ]);
@@ -148,7 +148,7 @@ class FacebookTest extends TestCase
 
     public function testTheBetaTierCanBeEnabled(): void
     {
-        $provider = new Facebook([
+        $provider = new Instagram([
             'graphApiVersion' => 'v0.0',
             'clientSecret' => 'mock_secret',
             'enableBetaTier' => true,
@@ -223,7 +223,7 @@ class FacebookTest extends TestCase
 
     public function testUserData(): void
     {
-        $provider = new FooFacebookProvider([
+        $provider = new FooInstagramProvider([
           'graphApiVersion' => static::GRAPH_API_VERSION,
         ]);
 
@@ -241,7 +241,7 @@ class FacebookTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
 
-        new Facebook([
+        new Instagram([
           'clientId' => 'mock_client_id',
           'clientSecret' => 'mock_secret',
           'redirectUri' => 'none',
@@ -250,7 +250,7 @@ class FacebookTest extends TestCase
 
     public function testOldVersionsOfGraphWillParseStringResponse(): void
     {
-        $provider = new Facebook([
+        $provider = new Instagram([
           'clientId' => 'mock_client_id',
           'clientSecret' => 'mock_secret',
           'redirectUri' => 'none',
@@ -307,7 +307,7 @@ class FacebookTest extends TestCase
 
     public function testAnAppSecretProofWillBeAppendedToRequestUrl(): void
     {
-        $provider = new Facebook([
+        $provider = new Instagram([
             'graphApiVersion' => 'v0.0',
             'clientSecret' => 'foo_secret',
         ]);
@@ -321,7 +321,7 @@ class FacebookTest extends TestCase
 
     public function testGetResourceOwnerDetailsForApiVersionLessThan28(): void
     {
-        $provider = new Facebook([
+        $provider = new Instagram([
             'graphApiVersion' => 'v2.7',
             'clientSecret' => 'foo_secret',
         ]);
@@ -329,7 +329,7 @@ class FacebookTest extends TestCase
 
         self::assertStringContainsString('bio', $provider->getResourceOwnerDetailsUrl($fooToken));
 
-        $provider = new Facebook([
+        $provider = new Instagram([
             'graphApiVersion' => 'v2.6',
             'clientSecret' => 'foo_secret',
         ]);
@@ -340,7 +340,7 @@ class FacebookTest extends TestCase
 
     public function testGetResourceOwnerDetailsForApiVersion28OrHigher(): void
     {
-        $provider = new Facebook([
+        $provider = new Instagram([
             'graphApiVersion' => 'v2.8',
             'clientSecret' => 'foo_secret',
         ]);
@@ -348,7 +348,7 @@ class FacebookTest extends TestCase
 
         self::assertStringNotContainsString('bio', $provider->getResourceOwnerDetailsUrl($fooToken));
 
-        $provider = new Facebook([
+        $provider = new Instagram([
             'graphApiVersion' => 'v2.9',
             'clientSecret' => 'foo_secret',
         ]);
@@ -359,7 +359,7 @@ class FacebookTest extends TestCase
 
     public function testGetResourceOwnerDetailsForApiVersion210OrHigher(): void
     {
-        $provider = new Facebook([
+        $provider = new Instagram([
             'graphApiVersion' => 'v2.10',
             'clientSecret' => 'foo_secret',
         ]);

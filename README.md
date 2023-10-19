@@ -1,9 +1,8 @@
-# Facebook Provider for OAuth 2.0 Client
+# Instagram for Business Provider for OAuth 2.0 Client
 
-[![Build Status](https://travis-ci.org/thephpleague/oauth2-facebook.png?branch=master)](https://travis-ci.org/thephpleague/oauth2-facebook)
-[![Latest Stable Version](https://poser.pugx.org/league/oauth2-facebook/v/stable.png)](https://packagist.org/packages/league/oauth2-facebook)
+[![Latest Stable Version](https://poser.pugx.org/janyksteenbeek/league-oauth2-instagram-business/v/stable.png)](https://packagist.org/packages/janyksteenbeek/league-oauth2-instagram-business)
 
-This package provides Facebook OAuth 2.0 support for the PHP League's [OAuth 2.0 Client](https://github.com/thephpleague/oauth2-client).
+This package provides Instagram Business OAuth 2.0 support for the PHP League's [OAuth 2.0 Client](https://github.com/thephpleague/oauth2-client). It is using the Facebook login flow but for Instagram Business & Creator accounts.
 
 This package is compliant with [PSR-1][], [PSR-2][], [PSR-4][], and [PSR-7][]. If you notice compliance oversights,
 please send a patch via pull request.
@@ -18,9 +17,9 @@ please send a patch via pull request.
 
 The following versions of PHP are supported.
 
-* PHP 7.3
-* PHP 7.4
 * PHP 8.0
+* PHP 8.1
+* PHP 8.2
 
 ## Installation
 
@@ -29,7 +28,7 @@ Add the following to your `composer.json` file.
 ```json
 {
     "require": {
-        "league/oauth2-facebook": "^2.0"
+        "janyksteenbeek/league-oauth2-instagram-business": "^1.0"
     }
 }
 ```
@@ -41,7 +40,7 @@ Add the following to your `composer.json` file.
 ```php
 session_start();
 
-$provider = new \League\OAuth2\Client\Provider\Facebook([
+$provider = new \League\OAuth2\Client\Provider\Instagram([
     'clientId'          => '{facebook-app-id}',
     'clientSecret'      => '{facebook-app-secret}',
     'redirectUri'       => 'https://example.com/callback-url',
@@ -56,7 +55,7 @@ if (!isset($_GET['code'])) {
     ]);
     $_SESSION['oauth2state'] = $provider->getState();
     
-    echo '<a href="'.$authUrl.'">Log in with Facebook!</a>';
+    echo '<a href="'.$authUrl.'">Log in with Instagram</a>';
     exit;
 
 // Check given state against previously stored one to mitigate CSRF attack
@@ -80,11 +79,11 @@ try {
     $user = $provider->getResourceOwner($token);
 
     // Use these details to create a new profile
-    printf('Hello %s!', $user->getFirstName());
+    printf('Hello @%s!', $user->getUsername());
     
     echo '<pre>';
     var_dump($user);
-    # object(League\OAuth2\Client\Provider\FacebookUser)#10 (1) { ...
+    # object(League\OAuth2\Client\Provider\InstagramUser)#10 (1) { ...
     echo '</pre>';
 
 } catch (\Exception $e) {
@@ -106,7 +105,7 @@ echo '</pre>';
 
 ### The FacebookUser Entity
 
-When using the `getResourceOwner()` method to obtain the user node, it will be returned as a `FacebookUser` entity.
+When using the `getResourceOwner()` method to obtain the user node, it will be returned as a `InstagramUser` entity.
 
 ```php
 $user = $provider->getResourceOwner($token);
@@ -213,13 +212,13 @@ $provider = new League\OAuth2\Client\Provider\Facebook([
 
 ### Refreshing a Token
 
-Facebook does not support refreshing tokens. In order to get a new "refreshed" token, you must send the user through the login-with-Facebook process again.
+Facebook does not support refreshing tokens. In order to get a new "refreshed" token, you must send the user through the login with Instagram process again.
 
 From the [Facebook documentation](https://developers.facebook.com/docs/facebook-login/access-tokens#extending):
 
 > Once [the access tokens] expire, your app must send the user through the login flow again to generate a new short-lived token.
 
-The following code will throw a `League\OAuth2\Client\Provider\Exception\FacebookProviderException`.
+The following code will throw a `League\OAuth2\Client\Provider\Exception\InstagramProviderException`.
 
 ```php
 $grant = new \League\OAuth2\Client\Grant\RefreshToken();
@@ -284,17 +283,12 @@ If you need to make even more complex queries to the Graph API to get lots of da
 $ ./vendor/bin/phpunit
 ```
 
-## Contributing
-
-Please see [CONTRIBUTING](https://github.com/thephpleague/oauth2-facebook/blob/master/CONTRIBUTING.md) for details.
-
-
 ## Credits
 
-- [Sammy Kaye Powers](https://github.com/SammyK)
-- [All Contributors](https://github.com/thephpleague/oauth2-facebook/contributors)
+- We thank [Sammy Kaye Powers](https://github.com/SammyK) for his work on the original Facebook provider
+- [All Contributors](https://github.com/janyksteenbeek/league-oauth2-instagram-business/contributors)
 
 
 ## License
 
-The MIT License (MIT). Please see [License File](https://github.com/thephpleague/oauth2-facebook/blob/master/LICENSE) for more information.
+The MIT License (MIT). Please see [License File](https://github.com/janyksteenbeek/league-oauth2-instagram-business/blob/master/LICENSE) for more information.

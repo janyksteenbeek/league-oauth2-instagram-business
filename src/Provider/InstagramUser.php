@@ -2,7 +2,7 @@
 
 namespace League\OAuth2\Client\Provider;
 
-class FacebookUser implements ResourceOwnerInterface
+class InstagramUser implements ResourceOwnerInterface
 {
     /**
      * @var array
@@ -154,7 +154,7 @@ class FacebookUser implements ResourceOwnerInterface
     }
 
     /**
-     * Returns the Facebook URL for the user as a string if available.
+     * Returns the Instagram URL for the user as a string if available.
      *
      * @return string|null
      */

@@ -2,19 +2,19 @@
 
 namespace League\OAuth2\Client\Test\Provider;
 
-use League\OAuth2\Client\Provider\FacebookUser;
+use League\OAuth2\Client\Provider\InstagramUser;
 use PHPUnit\Framework\TestCase;
 
-class FacebookUserTest extends TestCase
+class InstagramUserTest extends TestCase
 {
     /**
-     * @var FacebookUser
+     * @var InstagramUser
      */
     protected $user;
 
     protected function setUp(): void
     {
-        $this->user = new FacebookUser([
+        $this->user = new InstagramUser([
             'id' => '4',
             'picture' => ['data' => ['is_silhouette' => true, 'url' => 'foo.com/pic.jpg']],
             'first_name' => 'Mark',

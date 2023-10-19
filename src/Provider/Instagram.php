@@ -9,9 +9,9 @@ use League\OAuth2\Client\Token\AccessTokenInterface;
 use Psr\Http\Message\ResponseInterface;
 
 /**
- * @method FacebookUser getResourceOwner(AccessToken $token)
+ * @method InstagramUser getResourceOwner(AccessToken $token)
  */
-class Facebook extends AbstractProvider
+class Instagram extends AbstractProvider
 {
     /**
      * Production Graph API URL.
@@ -157,9 +157,9 @@ class Facebook extends AbstractProvider
         return $this->getAccessToken('fb_exchange_token', $params);
     }
 
-    protected function createResourceOwner(array $response, AccessToken $token): FacebookUser
+    protected function createResourceOwner(array $response, AccessToken $token): InstagramUser
     {
-        return new FacebookUser($response);
+        return new InstagramUser($response);
     }
 
     protected function checkResponse(ResponseInterface $response, $data): void
